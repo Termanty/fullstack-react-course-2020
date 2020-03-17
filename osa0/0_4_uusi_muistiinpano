@@ -3,10 +3,12 @@ Title 0.4 uusi muistiinpano
 
 selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
 palvelin-->selain: Response: status code 302
+
 note over selain:
 selain suorittaa redirect pyynnön
 eli lataa /notes sivun uudelleen
 end note
+
 selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/notes
 palvelin-->selain: HTML-koodi
 selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
