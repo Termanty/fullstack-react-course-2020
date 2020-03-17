@@ -1,0 +1,11 @@
+Title 0.6 Uusi muistiinpano
+
+
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+palvelin-->selain: Response: status code 201 (created)
+note over selain:
+Selain vastaanotta tiedon
+uudeen note luomisesta.
+Redirectia ei tarvita SPA 
+sovelluksissa.
+end note
