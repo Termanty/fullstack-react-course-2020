@@ -11,20 +11,25 @@ const Statistics = ({ good, neutral, bad }) => {
     return <p>No feedback given</p>
   } else {
     return (
-      <>
-        <StatisticLine name="good" value={good} />
-        <StatisticLine name="neutral" value={neutral} />
-        <StatisticLine name="bad" value={bad} />
-        <StatisticLine name="all" value={all} />
-        <StatisticLine name="average" value={(good - bad) / all} />
-        <StatisticLine name="positive" value={good / all} postfix="%" />
-      </>
+      <table>
+        <tbody>
+          <tr><StatisticLine name="good" value={good} /></tr>
+          <tr><StatisticLine name="neutral" value={neutral} /></tr>
+          <tr><StatisticLine name="bad" value={bad} /></tr>
+          <tr><StatisticLine name="all" value={all} /></tr>
+          <tr><StatisticLine name="average" value={(good - bad) / all} /></tr>
+          <tr><StatisticLine name="positive" value={good * 100 / all} postfix="%" /></tr>
+        </tbody>
+      </table>
     )
   }
 }
 
 const StatisticLine = ({ name, value, postfix }) => {
-  return <p>{name} {value}{postfix}</p>
+  return [
+    <td key="n">{name}</td>,
+    <td key="v">{value}{postfix}</td>
+  ]
 }
 
 const App = () => {
@@ -32,11 +37,7 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const onClick = (feedback, setFeedback) => {
-    return () => {
-      setFeedback(feedback + 1)
-    }
-  }
+  const onClick = (feedback, setFeedback) => () => setFeedback(feedback + 1)
 
   return (
     <div>
