@@ -16,6 +16,8 @@ const App = () => {
     }
   }
 
+  const all = good + neutral + bad
+
   return (
     <div>
       <h1>Give Feedback</h1>
@@ -26,6 +28,9 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>all {all}</p>
+      <p>average {all ? (good - bad) / all : 0}</p>
+      <p>positive {all ? (good) / all : 0}%</p>
     </div>
   )
 }
