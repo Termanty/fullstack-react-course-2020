@@ -7,20 +7,24 @@ const Button = ({ feedback, onClick }) => {
 
 const Statistics = ({ good, neutral, bad }) => {
   const all = good + neutral + bad
-  if (all == 0) {
+  if (all === 0) {
     return <p>No feedback given</p>
   } else {
     return (
       <>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {all}</p>
-        <p>average {(good - bad) / all}</p>
-        <p>positive {good / all}%</p>
+        <StatisticLine name="good" value={good} />
+        <StatisticLine name="neutral" value={neutral} />
+        <StatisticLine name="bad" value={bad} />
+        <StatisticLine name="all" value={all} />
+        <StatisticLine name="average" value={(good - bad) / all} />
+        <StatisticLine name="positive" value={good / all} postfix="%" />
       </>
     )
   }
+}
+
+const StatisticLine = ({ name, value, postfix }) => {
+  return <p>{name} {value}{postfix}</p>
 }
 
 const App = () => {
@@ -33,8 +37,6 @@ const App = () => {
       setFeedback(feedback + 1)
     }
   }
-
-  const all = good + neutral + bad
 
   return (
     <div>
