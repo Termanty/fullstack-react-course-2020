@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
+import { Filter } from './Filter'
+import { PersonForm } from './PersonForm'
+import { Persons } from './Persons'
 
-const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: "040-1231244" },
-    { name: 'Ada Lovelace', number: "+39 40 12335443" },
-    { name: 'Matti Luukkainen', number: "050-55577555" },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ])
+const phonebook = [
+  { name: 'Arto Hellas', number: "040-1231244" },
+  { name: 'Ada Lovelace', number: "+39 40 12335443" },
+  { name: 'Matti Luukkainen', number: "050-55577555" },
+  { name: 'Dan Abramov', number: '12-43-234345' },
+  { name: 'Mary Poppendieck', number: '39-23-6423122' }
+]
+
+export const App = () => {
+  const [persons, setPersons] = useState(phonebook)
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
@@ -23,41 +28,24 @@ const App = () => {
     }
   }
 
-  const handelNameChange = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handelNumberChange = (event) => {
-    setNewNumber(event.target.value)
-  }
-
-  const handelFilterChange = (event) => {
-    setFilter(event.target.value)
-  }
+  const handelNameChange = (event) => setNewName(event.target.value)
+  const handelNumberChange = (event) => setNewNumber(event.target.value)
+  const handelFilterChange = (event) => setFilter(event.target.value)
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <p>filter shown with <input value={filter} onChange={handelFilterChange}/></p>
+      <Filter filter={filter} handelFilterChange={handelFilterChange} />
+      
       <h3>add a new</h3>
-      <form onSubmit={onAdd}>
-        <div>
-          name: <input value={newName} onChange={handelNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handelNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm
+        onAdd={onAdd}
+        newName={newName}
+        handelNameChange={handelNameChange}
+        newNumber={newNumber}
+        handelNumberChange={handelNumberChange}/>
       <h2>Numbers</h2>
-      <ul>
-        {persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
-          .map(person => <li key={person.name}>{person.name} {person.number}</li>)}
-      </ul>
+      <Persons persons={persons} filter={filter} />
     </div>
   )
 }
-
-export default App
