@@ -1,21 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Filter } from './Filter'
 import { PersonForm } from './PersonForm'
 import { Persons } from './Persons'
-
-const phonebook = [
-  { name: 'Arto Hellas', number: "040-1231244" },
-  { name: 'Ada Lovelace', number: "+39 40 12335443" },
-  { name: 'Matti Luukkainen', number: "050-55577555" },
-  { name: 'Dan Abramov', number: '12-43-234345' },
-  { name: 'Mary Poppendieck', number: '39-23-6423122' }
-]
+import axios from 'axios'
 
 export const App = () => {
-  const [persons, setPersons] = useState(phonebook)
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+
+  useEffect(() => {
+    console.log('useEffect')
+    axios
+      .get("http://localhost:3001/persons")
+      .then(response => {
+        console.log('response ', response);
+        setPersons(response.data)
+      })
+  }, [])
+
+  console.log('there is ' ,persons.length, ' person in phonebook');
 
   const onAdd = (event) => {
     event.preventDefault()
