@@ -1,8 +1,16 @@
 import React from 'react';
 
-export const Persons = ({ persons, filter }) => {
+const PersonItem = ({ person, onDelete }) => {
+  return (
+    <li>
+      {person.name} {person.number} <button onClick={onDelete(person.id)}>delete</button>
+    </li>
+  )
+}
+
+export const Persons = ({ persons, filter, onDelete }) => {
   return (<ul>
     {persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
-      .map(person => <li key={person.name}>{person.name} {person.number}</li>)}
+      .map(person => <PersonItem person={person} onDelete={onDelete} key={person.name} />)}
   </ul>);
 };
