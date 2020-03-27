@@ -13,7 +13,22 @@
     {
       "id": 6,
       "name": "tyty",
-      "number": "12312313213213"
+      "number": "23423455"
+    },
+    {
+      "name": "Tero M",
+      "number": "+358 55 5666777",
+      "id": 7
+    },
+    {
+      "name": "Seppo Zee",
+      "number": "+358 56 7778880",
+      "id": 8
+    },
+    {
+      "name": "Ada Lovelace",
+      "number": "+44 345 556655",
+      "id": 9
     }
   ]
 }
