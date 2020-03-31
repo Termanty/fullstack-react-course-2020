@@ -32,13 +32,13 @@ export const App = () => {
   }
 
   const updatePhoneNumber = () => {
-    const p = persons.find(p => p.name == newName)
+    const p = persons.find(p => p.name === newName)
     const updatedContact = { id: p.id, name: newName, number: newNumber }
     personServices
       .update(updatedContact)
       .then(data => {
         setPersons(persons.map(person => {
-          if(person.name == newName) {
+          if(person.name === newName) {
             return { id: data.id, name: data.name, number: data.number }
           } else { 
             return { id: person.id, name: person.name, number: person.number } 
