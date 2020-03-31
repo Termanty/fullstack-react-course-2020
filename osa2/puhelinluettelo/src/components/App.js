@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import { Notification } from './Notification'
 import { Filter } from './Filter'
 import { PersonForm } from './PersonForm'
 import { Persons } from './Persons'
 import personServices from '../services/persons'
+import '../index.css'
 
 export const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     console.log('useEffect')
@@ -20,14 +23,22 @@ export const App = () => {
       })
   }, [])
 
+  useEffect(() => {
+    if(notification === null) return
+    setNewName('')
+    setNewNumber('')  
+    setTimeout(() => {
+      setNotification(null)
+    }, 3000)
+  }, [notification])
+
   const addContact = () => {
     const newContact = { name: newName, number: newNumber }
     personServices
       .create(newContact)
-      .then(data => {
-        setPersons(persons.concat(data))
-        setNewName('')
-        setNewNumber('')
+      .then(response => {
+        setPersons(persons.concat(response))
+        setNotification({ message: `Added ${response.name}`, type: "notification" })
       })
   }
 
@@ -36,16 +47,19 @@ export const App = () => {
     const updatedContact = { id: p.id, name: newName, number: newNumber }
     personServices
       .update(updatedContact)
-      .then(data => {
+      .then(response => {
         setPersons(persons.map(person => {
           if(person.name === newName) {
-            return { id: data.id, name: data.name, number: data.number }
+            return { id: response.id, name: response.name, number: response.number }
           } else { 
             return { id: person.id, name: person.name, number: person.number } 
           }
         }))
-        setNewName('')
-        setNewNumber('')
+        setNotification({ message: `Updated number for ${response.name}`, type: "notification" })
+      })
+      .catch(result => {
+        setPersons(persons.filter(person => person.id !== p.id))
+        setNotification({ message: `Information of ${p.name} has been removed from server`, type: "error" })
       })
   }
 
@@ -64,14 +78,15 @@ export const App = () => {
 
   const onDelete = (id) => {
     return () => {
-      if(window.confirm(`Delete ${persons.find(p => p.id === id).name}`)) {
-        personServices
-          .remove(id)
-          .then(() => {
-            console.log('deleted ' + id)
-            setPersons(persons.filter(person => person.id !== id))
-          })
-      }
+      const personToDelete = persons.find(p => p.id === id).name
+      if(!window.confirm(`Delete ${personToDelete}`)) return
+      personServices
+        .remove(id)
+        .then(() => {
+          console.log('deleted ' + personToDelete)
+          setPersons(persons.filter(person => person.id !== id))
+          setNotification({ message: `Deleted ${personToDelete}`, type: "notification" })
+        })
     }
   }
 
@@ -81,6 +96,7 @@ export const App = () => {
 
   return (
     <div>
+      <Notification notification={notification} />
       <h2>Phonebook</h2>
       <Filter filter={filter} handelFilterChange={handelFilterChange} />
       
