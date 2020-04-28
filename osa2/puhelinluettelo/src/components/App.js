@@ -14,11 +14,9 @@ export const App = () => {
   const [notification, setNotification] = useState(null)
 
   useEffect(() => {
-    console.log('useEffect')
     personServices
       .getAll()
       .then(data => {
-        console.log('response ', data);
         setPersons(data)
       })
   }, [])
@@ -38,7 +36,10 @@ export const App = () => {
       .create(newContact)
       .then(response => {
         setPersons(persons.concat(response))
-        setNotification({ message: `Added ${response.name}`, type: "notification" })
+        setNotification({ message: `Added ${response.name}`, type: 'notification' })
+      })
+      .catch(error => {
+        setNotification({ message: error.response.data.error, type: 'error'})
       })
   }
 
@@ -63,8 +64,6 @@ export const App = () => {
       })
   }
 
-  console.log('there is ' ,persons.length, ' person in phonebook');
-
   const onAdd = (event) => {
     event.preventDefault()
     if (persons.map(p => p.name).includes(newName)) {
@@ -83,7 +82,6 @@ export const App = () => {
       personServices
         .remove(id)
         .then(() => {
-          console.log('deleted ' + personToDelete)
           setPersons(persons.filter(person => person.id !== id))
           setNotification({ message: `Deleted ${personToDelete}`, type: "notification" })
         })
