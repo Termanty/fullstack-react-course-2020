@@ -27,7 +27,7 @@ export const App = () => {
     setNewNumber('')  
     setTimeout(() => {
       setNotification(null)
-    }, 3000)
+    }, 5000)
   }, [notification])
 
   const addContact = () => {
