@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export const PersonForm = ({ onAdd, newName, handelNameChange, newNumber, handelNumberChange }) => {
   return (<form onSubmit={onAdd}>
@@ -11,5 +11,5 @@ export const PersonForm = ({ onAdd, newName, handelNameChange, newNumber, handel
     <div>
       <button type="submit">add</button>
     </div>
-  </form>);
-};
+  </form>)
+}

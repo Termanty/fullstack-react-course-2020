@@ -24,7 +24,7 @@ export const App = () => {
   useEffect(() => {
     if(notification === null) return
     setNewName('')
-    setNewNumber('')  
+    setNewNumber('')
     setTimeout(() => {
       setNotification(null)
     }, 5000)
@@ -39,7 +39,7 @@ export const App = () => {
         setNotification({ message: `Added ${response.name}`, type: 'notification' })
       })
       .catch(error => {
-        setNotification({ message: error.response.data.error, type: 'error'})
+        setNotification({ message: error.response.data.error, type: 'error' })
       })
   }
 
@@ -52,15 +52,15 @@ export const App = () => {
         setPersons(persons.map(person => {
           if(person.name === newName) {
             return { id: response.id, name: response.name, number: response.number }
-          } else { 
-            return { id: person.id, name: person.name, number: person.number } 
+          } else {
+            return { id: person.id, name: person.name, number: person.number }
           }
         }))
-        setNotification({ message: `Updated number for ${response.name}`, type: "notification" })
+        setNotification({ message: `Updated number for ${response.name}`, type: 'notification' })
       })
-      .catch(result => {
+      .catch(() => {
         setPersons(persons.filter(person => person.id !== p.id))
-        setNotification({ message: `Information of ${p.name} has been removed from server`, type: "error" })
+        setNotification({ message: `Information of ${p.name} has been removed from server`, type: 'error' })
       })
   }
 
@@ -72,7 +72,7 @@ export const App = () => {
       }
     } else {
       addContact()
-    } 
+    }
   }
 
   const onDelete = (id) => {
@@ -83,7 +83,7 @@ export const App = () => {
         .remove(id)
         .then(() => {
           setPersons(persons.filter(person => person.id !== id))
-          setNotification({ message: `Deleted ${personToDelete}`, type: "notification" })
+          setNotification({ message: `Deleted ${personToDelete}`, type: 'notification' })
         })
     }
   }
@@ -97,7 +97,6 @@ export const App = () => {
       <Notification notification={notification} />
       <h2>Phonebook</h2>
       <Filter filter={filter} handelFilterChange={handelFilterChange} />
-      
       <h3>add a new</h3>
       <PersonForm
         onAdd={onAdd}

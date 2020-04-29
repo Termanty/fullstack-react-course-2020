@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const PersonItem = ({ person, onDelete }) => {
   return (
@@ -12,5 +12,5 @@ export const Persons = ({ persons, filter, onDelete }) => {
   return (<ul>
     {persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
       .map(person => <PersonItem person={person} onDelete={onDelete} key={person.name} />)}
-  </ul>);
-};
+  </ul>)
+}
