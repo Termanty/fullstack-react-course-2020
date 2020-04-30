@@ -1,0 +1,15 @@
+get http://localhost:3003/api/blogs
+
+###
+get http://localhost:3003/api/blogs/5eaaada854764f3e42705d61
+
+###
+post http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "ES6 — Map vs Object — What and when?",
+  "author": "Maya Shavin",
+  "url": "https://medium.com/front-end-weekly/es6-map-vs-object-what-and-when-b80621932373",
+  "likes": "2"
+}
