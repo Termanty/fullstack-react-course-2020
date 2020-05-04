@@ -8,8 +8,8 @@ post http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "ES6 — Map vs Object — What and when?",
-  "author": "Maya Shavin",
-  "url": "https://medium.com/front-end-weekly/es6-map-vs-object-what-and-when-b80621932373",
-  "likes": "2"
+  "title": "Core building blocks of React",
+  "author": "Tringa Krasniqi",
+  "url": "https://dev.to/tringakrasniqi/core-building-blocks-of-react-3dk7",
+  "likes": "10"
 }
