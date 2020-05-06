@@ -20,6 +20,7 @@ const favoriteBlog = (blogs) => {
 }
 
 const mostBlogs = (blogs) => {
+  if ( blogs.length === 0 ) return undefined
   const sumBlogsByAuthor = (authorsArray, blog) => {
     const item = authorsArray.find(item => item.author === blog.author)
     if (item === undefined) {
@@ -36,6 +37,7 @@ const mostBlogs = (blogs) => {
 }
 
 const mostLikes = (blogs) => {
+  if ( blogs.length === 0 ) return undefined
   const allLikesForAuthor = (authorsArray, blog) => {
     const item = authorsArray.find(item => item.author === blog.author)
     if (item === undefined) {
